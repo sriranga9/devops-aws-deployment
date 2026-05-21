@@ -1,34 +1,11 @@
-pipeline {
-    agent any
-
-    environment {
-        IMAGE_NAME = "devops-demo-app"
+stage('Docker Build') {
+    steps {
+        sh 'docker build -t shriranga/devops-demo-app .'
     }
+}
 
-    stages {
-
-        stage('Build') {
-            steps {
-                echo "Building application..."
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo "Running tests..."
-            }
-        }
-
-        stage('Docker Build') {
-            steps {
-                sh 'docker build -t $IMAGE_NAME .'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo "Deploy step (can be Kubernetes later)"
-            }
-        }
+stage('Docker Push') {
+    steps {
+        sh 'docker push shriranga/devops-demo-app'
     }
 }
