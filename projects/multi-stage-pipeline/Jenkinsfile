@@ -1,21 +1,34 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "devops-demo-app"
+    }
+
     stages {
+
         stage('Build') {
             steps {
-                echo "Building..."
+                echo "Building application..."
             }
         }
+
         stage('Test') {
             steps {
-                echo "Testing..."
+                echo "Running tests..."
             }
         }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t $IMAGE_NAME .'
+            }
+        }
+
         stage('Deploy') {
             steps {
-                echo "Deploying..."
+                echo "Deploy step (can be Kubernetes later)"
             }
         }
     }
-}   
+}
